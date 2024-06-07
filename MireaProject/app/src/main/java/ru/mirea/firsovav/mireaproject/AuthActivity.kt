@@ -1,5 +1,6 @@
 package ru.mirea.firsovav.mireaproject
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import ru.mirea.firsovav.mireaproject.databinding.ActivityAuthBinding
+import java.lang.String.valueOf
 
 class AuthActivity : AppCompatActivity() {
 
@@ -20,17 +22,20 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mAuth = FirebaseAuth.getInstance()
+
         binding.createAccount.setOnClickListener {
-            val email: String = java.lang.String.valueOf(binding.email.text)
-            val password: String = java.lang.String.valueOf(binding.password.text)
+            val email: String = valueOf(binding.email.text)
+            val password: String = valueOf(binding.password.text)
             createAccount(email, password)
         }
+
         binding.signedInButtons.setOnClickListener {
-            val email: String = java.lang.String.valueOf(binding.email.text)
-            val password: String = java.lang.String.valueOf(binding.password.text)
+            val email: String = valueOf(binding.email.text)
+            val password: String = valueOf(binding.password.text)
             signIn(email, password)
         }
     }
+
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             val intent = Intent(this, MainActivity::class.java)
@@ -46,28 +51,25 @@ class AuthActivity : AppCompatActivity() {
 
     private fun createAccount(email: String, password: String) {
         Log.d(TAG, "createAccount:$email")
-        if ("createAccount:" == "1") {
+        if (email.isEmpty() or password.isEmpty()) {
+            Toast.makeText(
+                this, "Email and/or password fields are not filled in",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(
-                this
-            ) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(
-                        TAG,
-                        "createUserWithEmail:success"
-                    )
                     val user = mAuth.currentUser
+                    Toast.makeText(
+                        this, "Signed up successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     updateUI(user)
                 } else {
-                    Log.w(
-                        TAG,
-                        "createUserWithEmail:failure",
-                        task.exception
-                    )
                     Toast.makeText(
-                        this@AuthActivity, "Authenticationfailed.",
+                        this, "Sign up failed",
                         Toast.LENGTH_SHORT
                     ).show()
                     updateUI(null)
@@ -77,30 +79,29 @@ class AuthActivity : AppCompatActivity() {
 
     private fun signIn(email: String, password: String) {
         Log.d(TAG, "signIn:$email")
+        if (email.isEmpty() or password.isEmpty()) {
+            Toast.makeText(
+                this, "Email and/or password fields are not filled in",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
         mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(
-                this
-            ) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
                     val user = mAuth.currentUser
+                    Toast.makeText(
+                        this, "Signed in successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     updateUI(user)
                 } else {
-                    Log.w(
-                        TAG,
-                        "signInWithEmail:failure",
-                        task.exception
-                    )
                     Toast.makeText(
-                        this@AuthActivity, "Authenticationfailed.",
+                        this, "Sign in failed",
                         Toast.LENGTH_SHORT
                     ).show()
                     updateUI(null)
                 }
             }
-    }
-
-    companion object {
-        private val TAG = MainActivity::class.java.simpleName
     }
 }
