@@ -19,22 +19,17 @@
         android:text="Email and Password"
         android:textAlignment="center" />
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/statusTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="Signed Out"
+        android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/statusTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Signed Out"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/detailTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+    <TextView
+        android:id="@+id/detailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/emailPasswordFields"
@@ -44,7 +39,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/emaiField"
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
@@ -54,7 +49,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/passwordField"
+            android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10sp"
@@ -64,57 +59,51 @@
             android:inputType="text" />
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/signedInButtons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/signedInButtons"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/signOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40sp"
-                android:layout_weight="1"
-                android:text="@string/sign_out" />
-
-            <Button
-                android:id="@+id/verifyEmailButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40sp"
-                android:layout_weight="1"
-                android:text="@string/verify_email" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/emailPasswordButtons"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <Button
+            android:id="@+id/signOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40sp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:text="@string/sign_out" />
 
-            <Button
-                android:id="@+id/signIn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40sp"
-                android:layout_weight="1"
-                android:text="Sign In" />
+        <Button
+            android:id="@+id/verifyEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40sp"
+            android:layout_weight="1"
+            android:text="@string/verify_email" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/createAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40sp"
-                android:layout_weight="1"
-                android:text="Create Account" />
+    <LinearLayout
+        android:id="@+id/signedOutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/signIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40sp"
+            android:layout_weight="1"
+            android:text="@string/sign_in" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/createAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40sp"
+            android:layout_weight="1"
+            android:text="@string/create_account" />
+
+    </LinearLayout>
+
 </LinearLayout>
